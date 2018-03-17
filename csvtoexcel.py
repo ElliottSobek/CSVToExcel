@@ -12,3 +12,32 @@
 #     but WITHOUT ANY WARRANTY; without even the implied warranty of
 #     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #     GNU General Public License for more details.
+
+import sys
+import csv
+
+from os.path import basename, getsize, exists
+from xlsxwriter.workbook import Workbook
+
+
+def main(argc=len(sys.argv), argv=sys.argv):
+    if argc < 3:
+        print("Usage: " + basename(argv[0]) + " <filename.csv ...> <filename>")
+        sys.exit(1)
+
+    for i in range(1, argc - 1):
+        file = argv[i]
+        if not exists(file):
+            print("Error: " + file + " does not exist")
+            sys.exit(1)
+        elif not getsize(file):
+            print("Error: " + file + " contains no data/is empty")
+            sys.exit(1)
+        elif not file.endswith('.csv'):
+            print("Error: " + file + " is not comma separated value (csv) format")
+            sys.exit(1)
+
+    return
+
+
+main()
