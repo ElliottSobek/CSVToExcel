@@ -4,9 +4,9 @@ Converts one or multiple CSV files into one Excel Workbook
 
 ## Requirements
 
-XlsxWriter
+Requirements can be installed using pip/pip3.
 
-XlsxWriter can be installed using pip/pip3.
+XlsxWriter
 
 ### Example
 
