@@ -59,7 +59,7 @@ def main(argc=len(sys.argv), argv=sys.argv):
 
         with open(csvfile, 'r', encoding='utf-8', newline='') as xlsxfile:
             reader = csv.reader(xlsxfile)
-            
+
             for r, row in enumerate(reader):
                 for c, col in enumerate(row):
                     worksheet.write(r, c, col)
