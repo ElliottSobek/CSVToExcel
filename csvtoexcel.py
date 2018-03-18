@@ -15,12 +15,10 @@
 
 import os
 import sys
-# import csv
+import csv
 
 from os.path import basename, getsize, exists, splitext, dirname
-
-
-# from xlsxwriter.workbook import Workbook
+from xlsxwriter.workbook import Workbook
 
 
 def gen_outfile(filepath, extension):
@@ -53,20 +51,19 @@ def main(argc=len(sys.argv), argv=sys.argv):
             sys.exit(1)
 
     outfile = gen_outfile(argv[-1], ".xlsx")
+    workbook = Workbook(outfile, {'constant_memory': True,
+                                  'strings_to_numbers': True})
+    for i in range(1, argc - 1):
+        csvfile = argv[i]
+        worksheet = workbook.add_worksheet(basename(csvfile))
 
-    # workbook = Workbook(filename_clean, {'constant_memory': True,
-    #                                                'strings_to_numbers': True})
-    # for i in range(1, argc - 1):
-    #     csvfile = sys.argv[i]
-    #     worksheet = workbook.add_worksheet(basename(csvfile))
-    #
-    #     with open(csvfile, 'r', encoding='utf8') as xlsxfile:
-    #         reader = csv.reader(xlsxfile)
-    #         for r, row in enumerate(reader):
-    #             for c, col in enumerate(row):
-    #                 worksheet.write(r, c, col)
-    # workbook.close()
-    # return
+        with open(csvfile, 'r', encoding='utf-8', newline='') as xlsxfile:
+            reader = csv.reader(xlsxfile)
+            for r, row in enumerate(reader):
+                for c, col in enumerate(row):
+                    worksheet.write(r, c, col)
+    workbook.close()
+    return
 
 
 main()
