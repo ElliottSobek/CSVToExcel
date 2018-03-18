@@ -13,11 +13,26 @@
 #     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #     GNU General Public License for more details.
 
+import os
 import sys
-import csv
+# import csv
 
-from os.path import basename, getsize, exists
-from xlsxwriter.workbook import Workbook
+from os.path import basename, getsize, exists, splitext, dirname
+
+
+# from xlsxwriter.workbook import Workbook
+
+
+def gen_outfile(filepath, extension):
+    out_dir = dirname(filepath)
+    out_base = basename(filepath)
+    base_outfile = splitext(out_base)[0]
+
+    if out_dir:
+        if os.name == "nt":
+            return out_dir + '\\' + base_outfile + extension
+        return out_dir + '/' + base_outfile + extension
+    return out_dir + base_outfile + extension
 
 
 def main(argc=len(sys.argv), argv=sys.argv):
@@ -37,7 +52,21 @@ def main(argc=len(sys.argv), argv=sys.argv):
             print("Error: " + file + " is not comma separated value (csv) format")
             sys.exit(1)
 
-    return
+    outfile = gen_outfile(argv[-1], ".xlsx")
+
+    # workbook = Workbook(filename_clean, {'constant_memory': True,
+    #                                                'strings_to_numbers': True})
+    # for i in range(1, argc - 1):
+    #     csvfile = sys.argv[i]
+    #     worksheet = workbook.add_worksheet(basename(csvfile))
+    #
+    #     with open(csvfile, 'r', encoding='utf8') as xlsxfile:
+    #         reader = csv.reader(xlsxfile)
+    #         for r, row in enumerate(reader):
+    #             for c, col in enumerate(row):
+    #                 worksheet.write(r, c, col)
+    # workbook.close()
+    # return
 
 
 main()
