@@ -44,7 +44,7 @@ def main():
     options, args = parser.parse_args()
 
     if len(args) < 2:
-        print("Usage: " + basename(sys.argv[0]) + " <filename.csv ...> <filename>")
+        print("Usage: " + basename(sys.argv[0]) + " [hsf] [--version] <filename.csv ...> <filename>")
         sys.exit(1)
 
     in_files = args[:-1]
