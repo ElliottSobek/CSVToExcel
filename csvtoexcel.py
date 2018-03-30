@@ -63,8 +63,7 @@ def main():
 
     print("CSV To Excel (C) 2018  Elliott Sobek\n"
           "This program comes with ABSOLUTELY NO WARRANTY.\n"
-          "This is free software, and you are welcome to redistribute it under certain conditions.\n")
-
+          "This is free software, and you are welcome to redistribute it under certain conditions.")
     extension = ".xlsx"
 
     if not outfile.endswith(extension):
