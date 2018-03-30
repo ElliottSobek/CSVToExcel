@@ -13,12 +13,11 @@
 #     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #     GNU General Public License for more details.
 
-import os
-import sys
-import csv
-
+from os import name
 from os.path import basename, getsize, exists, splitext, dirname
+from sys import exit, argv
 from optparse import OptionParser
+from csv import reader
 from xlsxwriter.workbook import Workbook
 
 
@@ -28,7 +27,7 @@ def gen_outfile(filepath, extension):
     base_outfile = splitext(out_base)[0]
 
     if out_dir:
-        if os.name == "nt":
+        if name == "nt":
             return out_dir + '\\' + base_outfile + extension
         return out_dir + '/' + base_outfile + extension
     return out_dir + base_outfile + extension
@@ -44,8 +43,8 @@ def main():
     options, args = parser.parse_args()
 
     if len(args) < 2:
-        print("Usage: " + basename(sys.argv[0]) + " [hsf] [--version] <filename.csv ...> <filename>")
-        sys.exit(1)
+        print("Usage: " + basename(argv[0]) + " [hsf] [--version] <filename.csv ...> <filename>")
+        exit(1)
 
     in_files = args[:-1]
     outfile = args[-1]
@@ -53,13 +52,13 @@ def main():
     for file in in_files:
         if not exists(file):
             print("Error: " + file + " does not exist")
-            sys.exit(1)
+            exit(1)
         elif not getsize(file) and not options.force_flag:
             print("Error: " + file + " contains no data/is empty")
-            sys.exit(1)
+            exit(1)
         elif not file.endswith('.csv'):
             print("Error: " + file + " is not comma separated value (csv) format")
-            sys.exit(1)
+            exit(1)
 
     print("CSV To Excel (C) 2018  Elliott Sobek\n"
           "This program comes with ABSOLUTELY NO WARRANTY.\n"
@@ -75,9 +74,9 @@ def main():
         worksheet = workbook.add_worksheet(basename(csvfile))
 
         with open(csvfile, 'r', encoding='utf-8', newline='') as xlsxfile:
-            reader = csv.reader(xlsxfile)
+            csv_reader = reader(xlsxfile)
 
-            for r, row in enumerate(reader):
+            for r, row in enumerate(csv_reader):
                 for c, col in enumerate(row):
                     worksheet.write(r, c, col)
     workbook.close()
