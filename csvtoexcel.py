@@ -13,7 +13,7 @@
 #     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #     GNU General Public License for more details.
 
-from os import name
+from os import name, access, R_OK
 from os.path import basename, getsize, exists, splitext, dirname
 from sys import exit, argv
 from optparse import OptionParser
@@ -59,14 +59,17 @@ def main():
         elif not file.endswith(".csv"):
             print("Error: " + file + " is not comma separated value (csv) format")
             exit(1)
-
-    print("CSV To Excel (C) 2018  Elliott Sobek\n"
-          "This program comes with ABSOLUTELY NO WARRANTY.\n"
-          "This is free software, and you are welcome to redistribute it under certain conditions.")
     extension = ".xlsx"
 
     if not outfile.endswith(extension):
         outfile = gen_outfile(outfile, extension)
+    if access(outfile, R_OK):
+        print("Error: " + outfile + " is readonly")
+        exit(1)
+
+    print("CSV To Excel (C) 2018  Elliott Sobek\n"
+          "This program comes with ABSOLUTELY NO WARRANTY.\n"
+          "This is free software, and you are welcome to redistribute it under certain conditions.")
     workbook = Workbook(outfile, {"strings_to_numbers": options.str_to_int_flag})
 
     for file in in_files:
