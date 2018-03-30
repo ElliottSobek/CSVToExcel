@@ -35,6 +35,7 @@ def gen_outfile(filepath, extension):
 
 def main():
     parser = OptionParser(usage="Usage: python3 %prog [options] <filename.csv ...> <outfile>", version="%prog 1.0")
+
     parser.add_option("-s", action="store_true", dest="str_to_int_flag",
                       help="Converts strings to integers when writing to excel file")
     parser.add_option("-f", action="store_true", dest="force_flag",
@@ -59,6 +60,7 @@ def main():
         elif not file.endswith(".csv"):
             print("Error: " + file + " is not comma separated value (csv) format")
             exit(1)
+
     extension = ".xlsx"
 
     if not outfile.endswith(extension):
@@ -70,6 +72,7 @@ def main():
     print("CSV To Excel (C) 2018  Elliott Sobek\n"
           "This program comes with ABSOLUTELY NO WARRANTY.\n"
           "This is free software, and you are welcome to redistribute it under certain conditions.")
+    
     workbook = Workbook(outfile, {"strings_to_numbers": options.str_to_int_flag})
 
     for file in in_files:
