@@ -48,6 +48,7 @@ def main():
         sys.exit(1)
 
     in_files = args[:-1]
+    outfile = args[-1]
 
     for file in in_files:
         if not exists(file):
@@ -64,7 +65,10 @@ def main():
           "This program comes with ABSOLUTELY NO WARRANTY.\n"
           "This is free software, and you are welcome to redistribute it under certain conditions.\n")
 
-    outfile = gen_outfile(args[-1], ".xlsx")
+    extension = ".xlsx"
+
+    if not outfile.endswith(extension):
+        outfile = gen_outfile(outfile, extension)
     workbook = Workbook(outfile, {'strings_to_numbers': options.str_to_int_flag})
 
     for file in in_files:
