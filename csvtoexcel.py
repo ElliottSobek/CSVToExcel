@@ -67,13 +67,13 @@ def main():
 
     if not outfile.endswith(extension):
         outfile = gen_outfile(outfile, extension)
-    workbook = Workbook(outfile, {'strings_to_numbers': options.str_to_int_flag})
+    workbook = Workbook(outfile, {"strings_to_numbers": options.str_to_int_flag})
 
     for file in in_files:
         csvfile = file
         worksheet = workbook.add_worksheet(basename(csvfile))
 
-        with open(csvfile, 'r', encoding='utf-8', newline='') as xlsxfile:
+        with open(csvfile, 'r', encoding="utf-8", newline='') as xlsxfile:
             csv_reader = reader(xlsxfile)
 
             for r, row in enumerate(csv_reader):
