@@ -56,7 +56,7 @@ def main():
         elif not getsize(file) and not options.force_flag:
             print("Error: " + file + " contains no data/is empty")
             exit(1)
-        elif not file.endswith('.csv'):
+        elif not file.endswith(".csv"):
             print("Error: " + file + " is not comma separated value (csv) format")
             exit(1)
 
