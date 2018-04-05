@@ -43,7 +43,7 @@ def main():
                       help="Converts strings to integers when writing to excel file")
     parser.add_option("-f", action="store_true", dest="force_flag",
                       help="Forces writing to excel file if one or more csv files are empty")
-    parser.add_option("-q", action="store_true", dest="quiet_flag", help="Suppress output")
+    parser.add_option("-q", action="store_true", dest="quiet_flag", help="Suppress the startup banner")
 
     options, args = parser.parse_args()
 
