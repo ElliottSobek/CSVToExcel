@@ -22,7 +22,7 @@ pip3 install XlsxWriter
 * Print program version (--version)
 * Store strings as numeric values (-s)
 * Force file writing even if input files are empty (-f)
-* Suppress the startup banner
+* Suppress the startup banner (-q)
 
 ## Worksheet Naming
 
