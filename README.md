@@ -1,5 +1,5 @@
 [![Generic badge](https://img.shields.io/badge/development%20status-in%20development-red.svg "Development Status")](https://shields.io/)
-
+    
 # CSVToExcel
 
 Converts one or multiple CSV files into one Excel Workbook
@@ -22,6 +22,7 @@ pip3 install XlsxWriter
 * Print program version (--version)
 * Store strings as numeric values (-s)
 * Force file writing even if input files are empty (-f)
+* Suppress the startup banner (-q)
 
 ## Worksheet Naming
 
