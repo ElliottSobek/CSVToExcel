@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 #     CSV To Excel; Converts a CSV file to an Excel file
-#     Copyright (C) 2018  Elliott Sobek
+#     Copyright (C) 2018  Elliott Sobek (elliottsobek@gmail.com)
 #
 #     This program is free software: you can redistribute it and/or modify
 #     it under the terms of the GNU General Public License as published by
@@ -12,6 +12,9 @@
 #     but WITHOUT ANY WARRANTY; without even the implied warranty of
 #     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #     GNU General Public License for more details.
+#
+#     You should have received a copy of the GNU General Public License
+#     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from os import name, access, R_OK
 from os.path import basename, getsize, exists, splitext, dirname
@@ -69,10 +72,10 @@ def main():
         print("Error: " + outfile + " is readonly")
         exit(1)
 
-    print("CSV To Excel (C) 2018  Elliott Sobek\n"
+    print("CSV To Excel (C) 2018  Elliott Sobek (elliottsobek@gmail.com)\n"
           "This program comes with ABSOLUTELY NO WARRANTY.\n"
           "This is free software, and you are welcome to redistribute it under certain conditions.")
-    
+
     workbook = Workbook(outfile, {"strings_to_numbers": options.str_to_int_flag})
 
     for file in in_files:
