@@ -23,7 +23,15 @@ from csv import reader
 from xlsxwriter.workbook import Workbook
 
 
+# Imports
+
+
 def gen_outfile_abs_path(filepath: str, extension: str):
+    """
+    :param filepath: The relative or absolute filepath of the file
+    :param extension: The file extension
+    :return: The absolute filepath of the file with the extension
+    """
     from os import name
 
     out_dir = dirname(filepath)
