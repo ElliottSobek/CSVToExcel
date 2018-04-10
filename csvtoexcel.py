@@ -16,6 +16,7 @@
 #     You should have received a copy of the GNU General Public License
 #     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import os
 import optparse
 import csv
 
@@ -33,7 +34,6 @@ def gen_outfile_abs_path(filepath: str, extension: str):
     :param extension: The file extension
     :return: The absolute filepath of the file with the extension
     """
-    import os
 
     out_dir = dirname(filepath)
     out_base = basename(filepath)
