@@ -20,7 +20,7 @@ import os
 import optparse
 import csv
 
-from os.path import dirname, basename, splitext, getsize
+from os.path import dirname, basename, splitext
 from sys import argv, stderr
 from xlsxwriter.workbook import Workbook
 
@@ -83,10 +83,6 @@ def main():
     workbook = Workbook(outfile, {"strings_to_numbers": options.str_to_int_flag})
 
     for csvfile in in_files:
-        if not getsize(csvfile) and not options.force_flag:
-            print("Error: " + csvfile + " contains no data/is empty", file=stderr)
-            raise SystemExit(EXIT_FAILURE)
-
         worksheet = workbook.add_worksheet(basename(csvfile[:-4]))
 
         try:
@@ -98,6 +94,10 @@ def main():
             except PermissionError as e:
                 print(e, file=stderr)
                 raise SystemExit(EXIT_FAILURE)
+            raise SystemExit(EXIT_FAILURE)
+
+        if not os.stat(csvfile).st_size and not options.force_flag:
+            print("Error: " + csvfile + " contains no data/is empty", file=stderr)
             raise SystemExit(EXIT_FAILURE)
 
         csv_reader = csv.reader(xlsxfile)
