@@ -24,11 +24,8 @@ from os.path import dirname, basename, splitext
 from sys import argv, stderr
 from xlsxwriter.workbook import Workbook
 
-EXIT_FAILURE = 1
-EXIT_SUCCESS = 0
 
-
-def gen_outfile_abs_path(filepath: str, extension: str):
+def gen_outfile_abs_path(filepath: str, extension: str) -> str:
     """
     :param filepath: The relative or absolute filepath of the file
     :param extension: The file extension
@@ -46,7 +43,7 @@ def gen_outfile_abs_path(filepath: str, extension: str):
     return out_dir + base_outfile + extension
 
 
-def main():
+def main() -> int:
     parser = optparse.OptionParser(usage="Usage: python3 %prog [options] <filename.csv ...> <outfile>",
                                    version="%prog 1.2")
 
@@ -57,10 +54,11 @@ def main():
     parser.add_option("-q", action="store_true", dest="quiet_flag", help="Suppress the startup banner")
 
     options, args = parser.parse_args()
+    exit_failure = 1
 
     if len(args) < 2:
         print("Usage: " + basename(argv[0]) + "[h] [sfq] [--version] <filename.csv ...> <filename>", file=stderr)
-        raise SystemExit(EXIT_FAILURE)
+        raise SystemExit(exit_failure)
 
     in_files = args[:-1]
     outfile = args[-1]
@@ -68,7 +66,7 @@ def main():
     for csvfile in in_files:
         if not csvfile.endswith(".csv"):
             print("Error: " + csvfile + " is not comma separated value (csv) format", file=stderr)
-            raise SystemExit(EXIT_FAILURE)
+            raise SystemExit(exit_failure)
 
     extension = ".xlsx"
 
@@ -93,12 +91,12 @@ def main():
                 workbook.close()
             except PermissionError as e:
                 print(e, file=stderr)
-                raise SystemExit(EXIT_FAILURE)
-            raise SystemExit(EXIT_FAILURE)
+                raise SystemExit(exit_failure)
+            raise SystemExit(exit_failure)
 
         if not os.stat(csvfile).st_size and not options.force_flag:
             print("Error: " + csvfile + " contains no data/is empty", file=stderr)
-            raise SystemExit(EXIT_FAILURE)
+            raise SystemExit(exit_failure)
 
         csv_reader = csv.reader(xlsxfile)
 
@@ -111,8 +109,8 @@ def main():
         workbook.close()
     except PermissionError as e:
         print(e, file=stderr)
-        raise SystemExit(EXIT_FAILURE)
-    return EXIT_SUCCESS
+        raise SystemExit(exit_failure)
+    return 0
 
 
 main()
