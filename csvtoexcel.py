@@ -91,11 +91,14 @@ def main() -> int:
                 workbook.close()
             except PermissionError as e:
                 print(e, file=stderr)
-                raise SystemExit(exit_failure)
             raise SystemExit(exit_failure)
 
         if not os.stat(csvfile).st_size and not options.force_flag:
             print("Error: " + csvfile + " contains no data/is empty", file=stderr)
+            try:
+                workbook.close()
+            except PermissionError as e:
+                print(e, file=stderr)
             raise SystemExit(exit_failure)
 
         csv_reader = csv.reader(xlsxfile)
